@@ -16,58 +16,60 @@ namespace Shop.Controllers
             _context = context;
         }
         [HttpGet]
-        public List<Pood> GetPood()
+        public List<Pood> GetProduct()
         {
-            var pood = _context.Pood.ToList();
-            return pood;
+            var product = _context.Pood.ToList();
+            return product;
         }
         [HttpPost("add")]
-        public List<Pood> PostPood([FromBody] Pood pood)
+        public List<Pood> PostProduct([FromBody] Pood product)
         {
-            _context.Pood.Add(pood);
+            _context.Pood.Add(product);
             _context.SaveChanges();
             return _context.Pood.ToList();
         }
         [HttpDelete("delete/{id}")]
-        public List<Pood> DeletePood(int id)
+        public List<Pood> DeleteProduct(int id)
         {
-            var pood = _context.Pood.Find(id);
+            var product = _context.Pood.Find(id);
 
-            if (pood == null)
+            if (product == null)
             {
                 return _context.Pood.ToList();
             }
 
-            _context.Pood.Remove(pood);
+            _context.Pood.Remove(product);
             _context.SaveChanges();
             return _context.Pood.ToList();
         }
         [HttpGet("select/{id}")]
-        public ActionResult<Pood> GetPood(int id)
+        public ActionResult<Pood> GetProduct(int id)
         {
-            var pood = _context.Pood.Find(id);
-            if (pood == null)
+            var product = _context.Pood.Find(id);
+
+            if (product == null)
             {
                 return NotFound();
             }
-            return pood;
+
+            return product;
         }
-        [HttpPut("update/{id}")]
-        public ActionResult<List<Pood>> PutPood(int id, [FromBody] Pood updatedPood)
-        {
-            var pood = _context.Pood.Find(id);
 
-            if (pood == null)
+        [HttpPut("update/{id}")]
+        public ActionResult<List<Pood>> PutProducts(int id, [FromBody] Pood updatedProduct)
+        {
+            var product = _context.Pood.Find(id);
+
+            if (product == null)
             {
                 return NotFound();
             }
 
-            pood.PoodName = updatedPood.PoodName;
-            pood.PoodAsukoht = updatedPood.PoodAsukoht;
-            pood.ContactInfo = updatedPood.ContactInfo;
+            product.PoodName = updatedProduct.PoodName;
+            product.PoodAsukoht = updatedProduct.PoodAsukoht;
+            product.ContactInfo = updatedProduct.ContactInfo;
 
-
-            _context.Pood.Update(pood);
+            _context.Pood.Update(product);
             _context.SaveChanges();
 
             return Ok(_context.Pood);
